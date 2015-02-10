@@ -1,0 +1,55 @@
+<script>
+  //defines race length
+  var finishLine = 1000
+
+  //defines the Animal object type
+  function Animal(speed, focus, name){
+    this.speed = speed;
+    this.focus = focus;
+    this.name = name;
+    this.position = 0;
+    this.message = name + ' is ready to run!';
+
+    //advances position depending on focus, adjusts message based on what happened last turn
+    this.run = function(){
+      if (Math.random()*10 < this.focus){
+        this.position += this.speed;
+        this.message = this.name+' ran ' + this.speed + ' yards and has run a total of ' + this.position + ' yards.';
+      }
+      else{
+        this.message = this.name + ' was distracted and didn\'t run. They are still at ' + this.position + ' yards from the starting line.';
+      }
+    }
+  }
+
+  //create turtle and rabbit objects
+  var turtle = new Animal(40, 10 ,'The Turtle');
+  var rabbit = new Animal(100, 3, 'The Rabbit');
+
+  //tells the user that the race is beginning
+  alert(turtle.message + '\n' + rabbit.message);
+  running = true;
+
+  //main loop
+  while (running){
+    //checks if the race is over and ends the program if so
+    if(turtle.position >= finishLine && rabbit.position < finishLine){
+      alert('The Turtle wins!');
+      running = false;
+    }
+    else if(turtle.position < finishLine && rabbit.position >= finishLine){
+      alert('The Rabbit wins!');
+      running=false;
+    }
+    else if(turtle.position >= finishLine && rabbit.position >= finishLine){
+      alert('The race was a tie!');
+      running=false;
+    }
+    //has both animals run and displays an alert to let the user know what happened on this turn
+    else{
+      turtle.run();
+      rabbit.run();
+      alert(turtle.message + '\n' + rabbit.message);
+    }
+  }
+</script>

@@ -1,0 +1,113 @@
+<script>
+  //defines race length
+  var finishLine = 1000;
+
+  //defines the Animal object type
+  function Animal(speed, name){
+    this.speed = speed;
+    this.name = name;
+    this.position = 0;
+    this.message = name + ' is ready to run!';
+
+    }
+
+  function checkWin(arguments){
+    winners = []
+    for (i = 0; i < arguments.length; i++){
+      if (arguments[i].position >= finishLine){
+        winners.push(arguments[i].name)
+        win = arguments[i].name
+      }
+    }
+    if (winners.length == 0){
+      return false
+    }
+    else if (winners.length == 1){
+      alert(win + ' won the race!')
+      return true
+    }
+    else{
+      alert('There was a tie!')
+      return true
+    }
+  }
+
+  //creates the running behaviors for each animal type
+  function turtleRun(turtle){
+    turtle.position += turtle.speed;
+    turtle.message = turtle.name+' moseyed ' + turtle.speed + ' yards and has gone a total of ' + turtle.position + ' yards.';
+  }
+
+  function rabbitRun(rabbit){
+    if (Math.random() * 10 < 3){
+      rabbit.position += rabbit.speed;
+      rabbit.message = rabbit.name+' ran ' + rabbit.speed + ' yards and has run a total of ' + rabbit.position + ' yards.';
+    }
+    else{
+      rabbit.message = rabbit.name + ' was distracted by a shiny object and didn\'t run. They are still at ' + rabbit.position + ' yards from the starting line.';
+    }
+  }
+
+  function slothRun(sloth){
+    if (Math.random() * 100 < 99){
+      sloth.position += sloth.speed;
+      sloth.message = sloth.name + ' sprinted ' + sloth.speed + ' yard and has gone a total of ' + sloth.position + ' yards.';
+    }
+    else{
+      sloth.position = 1000
+      sloth.message = sloth.name + ' activated its teleportation ability and warped to the finish line.';
+    }
+  }
+
+  function foxRun(fox){
+    if (Math.random() * 10 < 7){
+      fox.position += fox.speed;
+      fox.message = fox.name + ' went along slowly, looking for a shortcut. It only went ' + fox.speed + ' yards and has run a total of ' + fox.position + ' yards.'
+    }
+    else{
+      shortcut = 100 + Math.ceil(Math.random() * 100)
+      fox.position += shortcut
+      fox.message = fox.name + 'found a shortcut, allowing them to advance ' + shortcut + ' yards, and has now run a total of ' + fox.position + ' yards.'
+    }
+  }
+
+  function puppyRun(puppy){
+    if (Math.random() * 10 < 7){
+      puppy.position += puppy.speed;
+      puppy.message = puppy.name + ' ran ' + puppy.speed + ' yards full speed ahead! It has now advanced a total of ' + puppy.position + ' yards.'
+    }
+    else{
+      puppy.position -= puppy.speed;
+      puppy.message = puppy.name + ' ran ' + puppy.speed + ' yards full speed... backward. It has now advanced a total of ' + puppy.position + ' yards.'
+    }
+  }
+
+  //create turtle and rabbit objects
+  var turtle = new Animal(40, 'The Turtle');
+  var rabbit = new Animal(100, 'The Rabbit');
+  var sloth = new Animal(1, 'The Sloth')
+  var fox = new Animal(10, 'The Fox')
+  var puppy = new Animal(100, 'The Puppy')
+  var racerList=[turtle, rabbit, sloth, fox, puppy]
+  //tells the user that the race is beginning
+  alert(turtle.message + '\n' + rabbit.message + '\n' + sloth.message + '\n' + fox.message + '\n' + puppy.message);
+  running = true;
+
+  //main loop
+  while (running){
+    //checks if the race is over and ends the program if so
+    if(checkWin(racerList)){
+      running = false
+    }
+    //has all animals run and displays an alert to let the user know what happened on this turn
+    else{
+      turtleRun(turtle);
+      rabbitRun(rabbit);
+      slothRun(sloth);
+      foxRun(fox);
+      puppyRun(puppy);
+      alert(turtle.message + '\n' + rabbit.message + '\n' + sloth.message + '\n' + fox.message + '\n' + puppy.message);
+    }
+  }
+
+</script>
